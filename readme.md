@@ -1,1 +1,1 @@
-Taijijs web framework
+Taijijs web application framework

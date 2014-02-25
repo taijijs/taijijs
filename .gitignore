@@ -9,11 +9,11 @@ lib-cov
 *.pid
 *.swp
 *.swo
-benchmarks/graphs
+benchmarks
 testing
 node_modules/
 testing
 .coverage_data
 cover_html
-test.js
+*.js
 .idea
