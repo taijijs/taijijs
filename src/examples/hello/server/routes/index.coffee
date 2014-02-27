@@ -1,0 +1,1 @@
+models = require '../models/sample'

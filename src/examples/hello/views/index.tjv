@@ -1,0 +1,4 @@
+extends layouts/default
+block content
+  input: {{name}}
+  p: hello {name}

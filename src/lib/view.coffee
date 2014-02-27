@@ -1,77 +1,29 @@
-/**
- * Module dependencies.
- */
+path = require('path')
+fs = require('fs')
+utils = require('./utils')
+dirname = path.dirname
+basename = path.basename
+extname = path.extname
+exists = fs.existsSync || path.existsSync
+join = path.join
 
-var path = require('path')
-  , fs = require('fs')
-  , utils = require('./utils')
-  , dirname = path.dirname
-  , basename = path.basename
-  , extname = path.extname
-  , exists = fs.existsSync || path.existsSync
-  , join = path.join;
+module.exports = View = (name, options) ->
+  options = options || {}
+  @name = name
+  @root = options.root
+  engines = options.engines
+  @defaultEngine = options.defaultEngine
+  ext = @ext = extname(name)
+  if !ext && !@defaultEngine then throw new Error('No default engine was specified and no extension was provided.')
+  if !ext then name += (ext = @ext = ('.' != @defaultEngine[0] ? '.' : '') + @defaultEngine)
+  @engine = engines[ext] || (engines[ext] = require(ext.slice(1)).__express)
+  @path = @lookup(name)
 
-/**
- * Expose `View`.
- */
+View::lookup = (path) ->
+  ext = @ext
+  if !utils.isAbsolute(path) then path = join(@root, path)
+  if exists(path) then return path
+  path = join(dirname(path), basename(path, ext), 'index' + ext)
+  if (exists(path)) then return path
 
-module.exports = View;
-
-/**
- * Initialize a new `View` with the given `name`.
- *
- * Options:
- *
- *   - `defaultEngine` the default template engine name
- *   - `engines` template engine require() cache
- *   - `root` root path for view lookup
- *
- * @param {String} name
- * @param {Object} options
- * @api private
- */
-
-function View(name, options) {
-  options = options || {};
-  this.name = name;
-  this.root = options.root;
-  var engines = options.engines;
-  this.defaultEngine = options.defaultEngine;
-  var ext = this.ext = extname(name);
-  if (!ext && !this.defaultEngine) throw new Error('No default engine was specified and no extension was provided.');
-  if (!ext) name += (ext = this.ext = ('.' != this.defaultEngine[0] ? '.' : '') + this.defaultEngine);
-  this.engine = engines[ext] || (engines[ext] = require(ext.slice(1)).__express);
-  this.path = this.lookup(name);
-}
-
-/**
- * Lookup view by the given `path`
- *
- * @param {String} path
- * @return {String}
- * @api private
- */
-
-View.prototype.lookup = function(path){
-  var ext = this.ext;
-
-  // <path>.<engine>
-  if (!utils.isAbsolute(path)) path = join(this.root, path);
-  if (exists(path)) return path;
-
-  // <path>/index.<engine>
-  path = join(dirname(path), basename(path, ext), 'index' + ext);
-  if (exists(path)) return path;
-};
-
-/**
- * Render with the given `options` and callback `fn(err, str)`.
- *
- * @param {Object} options
- * @param {Function} fn
- * @api private
- */
-
-View.prototype.render = function(options, fn){
-  this.engine(this.path, options, fn);
-};
+View::render = (options, fn) -> @engine(@path, options, fn)

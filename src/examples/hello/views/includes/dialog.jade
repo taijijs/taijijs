@@ -1,0 +1,111 @@
+script(id="settings-dialog.html", type="text/ng-template", title="settings for hopen")
+  //- hopen global application settings
+  .modal-header Hopen settings
+  .modal-body#settings-content
+    label 自然语言
+    select.select-without-button(ng-model="settings.naturalLanguage", ng-options="name for name in app.naturalLanguages", title="自然语言")
+    label 计算机语言
+    select.select-without-button(ng-model="settings.computerLanguage", ng-options="name for name in app.computerLanguages", title="计算机语言", style="width:120px")
+  .modal-footer
+    button(class="btn btn-primary", ng-click="ok()") OK
+    button(class="btn btn-warning", ng-click="cancel()") Cancel
+
+script(id="new-file-dialog.html", type="text/ng-template", title="新文件")
+  //- hopen global application settings
+  .modal-header 新文件
+  .modal-body#settings-content
+    label 文件名
+    input(ng-model="settings.name", placeholder="noname", type="text")
+    select.select-without-button(ng-model="settings.naturalLanguage", ng-options="name for name in app.naturalLanguages", title="自然语言")
+    label 计算机语言
+    select.select-without-button(ng-model="settings.computerLanguage", ng-options="name for name in app.computerLanguages", title="计算机语言", style="width:120px")
+    label 显示语言
+    select.select-without-button(ng-model="settings.displayLanguage", ng-options="name for name in app.allLanguages()", title="计算机语言", style="width:120px")
+  .modal-footer
+    button(class="btn btn-primary", ng-click="ok()") OK
+    button(class="btn btn-warning", ng-click="cancel()") Cancel
+
+script(id="show-computer-language-code-dialog.html", type="text/ng-template", title="显示计算机语言代码")
+  .modal-header 计算机语言代码
+  .modal-body#settings-content
+    program-file(file="file")
+  .modal-footer
+    button(class="btn btn-primary", ng-click="ok()") OK
+
+script(id="new-user-signup.html", type="text/ng-template", title="新用户注册")
+  //- new hopen user sign up
+  .modal-header 新用户注册
+  .modal-body
+    label 用户名:
+    input(placehoder="user name", type="text")
+    label 口令:
+      input(placehoder="password", type="text")
+    label 重复刚输入的口令:
+      input(placehoder="password", type="text")
+  .modal-footer
+    button(class="btn btn-primary", ng-click="ok()") OK
+    button(class="btn btn-warning", ng-click="cancel()") Cancel
+
+script(id="old-user-signin.html", type="text/ng-template", title="老用户登录")
+  //- old hopen user sign in
+  .modal-header 老用户登录
+  .modal-body
+    label 用户名:
+    input(placehoder="user name", type="text")
+    label 口令:
+      input(placehoder="password", type="text")
+  .modal-footer
+    button(class="btn btn-primary", ng-click="ok()") OK
+    button(class="btn btn-warning", ng-click="cancel()") Cancel
+
+script(id="edit-find-dialog.html", type="text/ng-template", title="查找")
+  //- old hopen user sign in
+  .modal-header 查找
+
+  .modal-body#find-body
+    input(placehoder="查找内容", type="text")
+    div
+      input#find-case(type='checkbox')
+      label(for="find-case") 大小写相关
+      input#find-replace-regexp(type='checkbox')
+      label(for="find-regexp") 正规表达式
+      input#find-word(type='checkbox')
+      label(for="find-word") 全字匹配
+
+  .modal-footer
+    button(ng-click="find()", title='查找')
+      img(src='images/find16.png')
+    button(ng-click="prev()", title='前一个')
+      img(src='images/up.png')
+    button(ng-click="next()", title='下一个')
+      img(src='images/down.png')
+    button(class="btn", ng-click="cancel()", title='取消')
+      img(src='images/cancel.png')
+
+script(id="edit-find-replace-dialog.html", type="text/ng-template", title="查找并替换")
+  //- old hopen user sign in
+  .modal-header 查找并替换
+
+  .modal-body#find-replace-body
+    div
+      label(for="find-input") 查找:
+      input(placehoder="查找内容", type="text")
+      label(for="replace-input") 替换为:
+      input(placehoder="替换内容", type="text")
+    div
+      input#find-replace-case(type='checkbox')
+      label(for="find-replace-case") 大小写相关
+      input#find-replace-regexp(type='checkbox')
+      label(for="find-replace-regexp") 正规表达式
+      input#find-replace-word(type='checkbox')
+      label(for="find-replace-word") 全字匹配
+
+  .modal-footer
+    button(ng-click="find()", title='查找')
+      img(src='images/find_replace16.png')
+    button(ng-click="prev()", title='前一个')
+      img(src='images/up.png')
+    button(ng-click="next()", title='下一个')
+      img(src='images/down.png')
+    button(class="btn", ng-click="cancel()", title='取消')
+      img(src='images/cancel.png')

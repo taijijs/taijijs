@@ -1,6 +1,7 @@
 {
   "name": "taijijs",
   "description": "taijijs web framework",
+  "keywords": ["taijijs", "taiji.js", "framework", "server", "browser", "client side", "front side", "mvc", "real time"],
   "version": "0.0.1",
   "author": "caoxingming <simeon.chaos@gmail.com>",
   "contributors": [
@@ -10,20 +11,8 @@
     }
   ],
   "dependencies": {
-    "accepts": "1.0.0",
-    "type-is": "1.0.0",
-    "range-parser": "1.0.0",
-    "cookie": "0.1.0",
-    "buffer-crc32": "0.2.1",
-    "fresh": "0.2.2",
-    "methods": "0.1.0",
-    "send": "0.2.0",
-    "cookie-signature": "1.0.3",
-    "merge-descriptors": "0.0.2",
-    "utils-merge": "1.0.0",
-    "escape-html": "1.0.1",
-    "qs": "0.6.6",
-    "debug": ">= 0.7.3 < 1",
+    "express": "latest",
+    "jade": "latest",
     "socket.io": "~0.9.16"
   },
   "devDependencies": {
@@ -36,15 +25,6 @@
     "grunt-contrib-watch": "~0.5.2",
     "grunt-concurrent": "~0.3.0"
   },
-  "keywords": [
-    "taijijs",
-    "framework",
-    "server",
-    "browser",
-    "client side",
-    "front",
-    "mvc"
-  ],
   "repository": "git://github.com/taijijs/taijijs",
   "scripts": {
     "prepublish": "npm prune",
