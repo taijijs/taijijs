@@ -1,8 +1,0 @@
-li(ng-click="commands.backward()", title="点击可后退，按住可查看历史")
-  img(src='images/backward32.png')
-li(ng-click="commands.forward()", title="点击可前进，按住可查看历史")
-  img(src='images/forward32.png')
-li
-  input(ng-model="app.queryText", ng-keyup='commands.queryKeyup($event)', name="commandbox", placeholder="命令或查询......", type="text")
-  button.btn(type="submit", ng-click='commands.queryOk()')
-    i#searchok(title="执行已经输入的命令或查询") OK

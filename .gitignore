@@ -10,10 +10,8 @@ lib-cov
 *.swp
 *.swo
 benchmarks
-testing
-node_modules/
-testing
+node_modules
+dist
 .coverage_data
 cover_html
-*.js
 .idea

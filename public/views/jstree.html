@@ -1,0 +1,48 @@
+<html>
+<base href="/" target="_blank"/>
+<script type="text/javascript"  src="js/jquery.js"></script>
+<script type="text/javascript"  src="js/jquery.jstree.js"></script>
+<script type="text/javascript"  src="js/jquery.hotkeys.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+        alert("dfsal;kj");
+        $("#folder-tree").jstree({"plugins" : ["themes","html_data","ui","crrm","hotkeys"],
+          "core" : { "initially_open" : [ "phtml_3" ] }});
+        setTimeout(function () {
+          $("#folder-tree").jstree("set_focus");
+          $.jstree._focused().select_node("#phtml_1");
+          //$.jstree._reference("#phtml_1").close_node("#phtml_1");
+        }, 500);
+        $("#folder-tree").bind("open_node.jstree", function (e, data) {
+          // data.inst is the instance which triggered this event
+          data.inst.select_node("#phtml_2", true);
+        });
+//        setTimeout(function () { $.jstree._reference("#phtml_1").open_node("#phtml_1"); }, 2500);
+        setTimeout(function () { $.jstree._reference("#phtml_3").open_node("#phtml_3"); }, 2500);
+      }
+  );
+</script>
+
+<body>
+<div id="folder-tree">
+    <ul>
+      <li id="phtml_1"><a>Team A's Projects</a>
+        <ul>
+          <li id="phtml_3"><a>Iteration 1</a>
+            <ul>
+              <li><a>Story A</a></li>
+              <li><a>Story B</a></li>
+              <li><a>Story C</a></li>
+            </ul>
+          </li>
+          <li id="phtml_2"><a>Iteration 2</a>
+            <ul>
+              <li><a>Story D</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+</div>
+</body>
+</html>

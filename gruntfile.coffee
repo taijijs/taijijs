@@ -1,13 +1,16 @@
 copyDevFiles = copyFiles = [
-  ['src/', 'dist/',['**/*.js', '**/*.json']]
+  ['src/', 'dist/',['**/*.js', '**/*.json', '**/*.jade', '**/*.html', '**/*.css', '**/*.tjv']]
 ]
 
-coffeeFolders = ['**']
+coffeeFolders = ['**/']
 coffeePatterns = ('src/'+folder+'*.coffee' for folder in coffeeFolders)
 
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
+    shell:  # grunt-shell or grunt-shell-spawn.
+      options: stdout: true
+      runapp: command: 'node dist/examples/sockio/server/app.js'
     clean: {dist: 'dist'}
     copy:
       dev: files:
@@ -16,7 +19,7 @@ module.exports = (grunt) ->
     coffee:
         options: {sourceRoot: '', bare: true} # sourceMap: true
         dev: files: for folder in coffeeFolders
-            {expand: true, cwd: 'src', src: folder+'*.coffee', dest:'dev', ext:'.js'}
+            {expand: true, cwd: 'src', src: folder+'*.coffee', dest:'dist', ext:'.js'}
 
     mochaTest: # server side
       all:
@@ -27,14 +30,20 @@ module.exports = (grunt) ->
     dev:
       options:{spawn: false, debounceDelay: 100}
       copy:
-        files: ['src/**/{*.js, *.json, *.html, *.css, *.jade}']
+        files: ['src/**/*.js']
         tasks: ['copy:dev']
       coffee:{files: coffeePatterns, tasks: ['coffee:dev']}
+      runapp:
+        options: {livereload: 1337, debounceDelay: 500}
+        files: ['src/**/*.coffee',
+                'src/**/*.scss', 'src/**/*.css', 'src/**/*.jade'
+        ]
+        taskes: ['shell:runapp']
 
     mocha: # watch mochaTest
       options:{spawn: true}
       mochaTest:
-        files: ['dev/modules/**/*.js', 'dev/server/**/*.js', 'dev/test/mocha-server/*.js', 'dev/test/*.js']
+        files: ['dist/**/*.js']
         tasks: ['mochaTest']
 
   grunt.option 'force', true
@@ -53,7 +62,7 @@ module.exports = (grunt) ->
             options: {sourceRoot: '', bare: true} # , sourceMap: true
             dev: {expand: true, cwd: 'src', dest: 'dev', src: filepath.slice(4), ext: '.js'}
 
-  grunt.registerTask('builddev', ['clean:dev', 'coffee:dev', 'copy:dev'])  # builddev have include all tasks related to tests
+  grunt.registerTask('builddev', ['clean:dist', 'coffee:dev', 'copy:dev'])  # builddev have include all tasks related to tests
   grunt.registerTask('build', ['builddev'])
   grunt.registerTask('dev', ['builddev'])
   grunt.registerTask('mocha1', ['mochaTest'])

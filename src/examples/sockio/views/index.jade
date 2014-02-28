@@ -1,0 +1,13 @@
+﻿extends layouts/default
+
+block content
+  #messages
+  input#message
+  button#send send
+  section#nameform.modal
+    div.backdrop
+    div.popup
+      div.pophead Please enter a nickname
+      div.popbody
+        input#nickname(type='text')
+        input#setname(type='button', value='Set Name')
