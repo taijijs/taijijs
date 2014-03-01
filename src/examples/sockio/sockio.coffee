@@ -20,4 +20,4 @@ exports.initialize = (server) ->
         socket.get 'nickname', (err, nickname) ->
           console.log 'nickname:'+nickname
         socket.emit 'name_set', data
-    socket.send JSON.stringify {type: 'serverMessage', message: 'welcome to chat room.'}
+    socket.send JSON.stringify {type: 'serverMessage', message: 'welcome to chat room.dfdffd'}

@@ -21,6 +21,10 @@ module.exports = (grunt) ->
         dev: files: for folder in coffeeFolders
             {expand: true, cwd: 'src', src: folder+'*.coffee', dest:'dist', ext:'.js'}
 
+    concurrent:
+      options: logConcurrentOutput: true
+      dev: tasks: ['shell:runapp', 'look:dev']
+
     mochaTest: # server side
       all:
         options: reporter: 'dot'
@@ -48,7 +52,8 @@ module.exports = (grunt) ->
 
   grunt.option 'force', true
   for task in ['grunt-contrib-clean',  'grunt-contrib-copy', 'grunt-shell',
-      'grunt-contrib-coffee', 'grunt-mocha-test', 'grunt-contrib-watch']
+      'grunt-contrib-coffee', 'grunt-mocha-test', 'grunt-contrib-watch',
+      'grunt-concurrent']
     grunt.loadNpmTasks(task)
   grunt.registerTask 'look', 'dynamic watch', ->
     target = grunt.task.current.args[0] or 'dev'
@@ -64,7 +69,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask('builddev', ['clean:dist', 'coffee:dev', 'copy:dev'])  # builddev have include all tasks related to tests
   grunt.registerTask('build', ['builddev'])
-  grunt.registerTask('dev', ['builddev'])
+  grunt.registerTask('dev', ['builddev','concurrent'])
   grunt.registerTask('mocha1', ['mochaTest'])
   grunt.registerTask('mocha', ['mochaTest', 'look:mocha'])
   grunt.registerTask('once', ['mochaTest'])

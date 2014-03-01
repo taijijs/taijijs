@@ -15,3 +15,5 @@ dist
 .coverage_data
 cover_html
 .idea
+temp
+temp.*

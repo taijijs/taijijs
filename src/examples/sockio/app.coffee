@@ -7,6 +7,8 @@ app = exports = module.exports = express()
 
 app.use(express.favicon())
 
+app.use(require('connect-livereload')()) # play with tiny-lr to livereload stuffs
+
 console.log  __dirname
 #app.use('/static', express['static'](__dirname + '/static'))
 publicPath = path.normalize(__dirname + '/../../../public')
