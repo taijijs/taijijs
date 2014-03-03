@@ -17,3 +17,5 @@ cover_html
 .idea
 temp
 temp.*
+dev
+build
