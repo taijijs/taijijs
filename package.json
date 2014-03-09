@@ -47,6 +47,7 @@
     "connect-livereload": "~0.3.2"
   },
   "repository": "git://github.com/taijijs/taijijs",
+  "main": "dist/index.js",
   "scripts": {
     "prepublish": "npm prune",
     "test": "grunt test"
